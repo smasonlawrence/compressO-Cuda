@@ -28,31 +28,25 @@ chrono = { version = "0.4", features = ["serde"] }
 directories = "5.0"
 image = "0.24"
 rayon = "1.7"
+regex = "1.10"
 
-# CUDA-specific dependencies
-cuda-runtime-sys = { version = "0.3.0-alpha.1", optional = true }
-cuda-driver-sys = { version = "0.3.0-alpha.1", optional = true }
-cudarc = { version = "0.9", features = ["cuda-12020", "driver"], optional = true }
+# CUDA-specific dependencies (only included when cuda feature is enabled)
+cudarc = { version = "0.9", optional = true }
 half = { version = "2.3", optional = true }
 bytemuck = { version = "1.14", optional = true }
-
-# FFmpeg integration
-ffmpeg-next = "6.0"
-ffmpeg-sys-next = { version = "6.0", features = ["build"] }
-
-# GPU memory management
-gpu-allocator = { version = "0.23", features = ["cuda"] }
 
 # Video processing utilities
 nalgebra = "0.32"
 ndarray = "0.15"
 
 [features]
-# Enable CUDA by default, but allow building without it
-default = ["cuda"]
-cuda = []
-# Custom tauri features
-custom-protocol = ["tauri/custom-protocol"]
+# Disable CUDA by default for initial testing
+default = []
+cuda = [
+    "dep:cudarc",
+    "dep:half", 
+    "dep:bytemuck"
+]
 
 [profile.release]
 lto = true
