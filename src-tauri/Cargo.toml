@@ -1,16 +1,18 @@
 [package]
 name = "compresso-cuda"
 version = "1.3.0"
-description = "CUDA-accelerated video compression app based on CompressO"
-authors = ["smasonlawrence"]
+description = "CUDA-accelerated video compression app"
+authors = ["Your Name <your.email@example.com>"]
 license = "MIT"
-repository = "https://github.com/smasonlawrence/compressO-Cuda"
+repository = "https://github.com/YOUR_USERNAME/compressO-Cuda"
 edition = "2021"
 
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
 [build-dependencies]
-tauri-build = { version = "1.4", features = [] }
 cc = "1.0"
 bindgen = "0.68.1"
+cmake = "0.1.50"
 
 [dependencies]
 tauri = { version = "1.4", features = ["api-all", "system-tray", "updater"] }
@@ -26,17 +28,20 @@ chrono = { version = "0.4", features = ["serde"] }
 directories = "5.0"
 image = "0.24"
 rayon = "1.7"
-regex = "1.10"
 
-# CUDA-specific dependencies (only included when cuda feature is enabled)
-cuda-runtime-sys = { version = "0.3", optional = true }
-cuda-driver-sys = { version = "0.3", optional = true }
-cudarc = { version = "0.9", features = ["cuda-12020", "driver"], optional = true }
-half = { version = "2.3", optional = true }
-bytemuck = { version = "1.14", optional = true }
+# CUDA-specific dependencies
+cuda-runtime-sys = "0.3"
+cuda-driver-sys = "0.3"
+cudarc = { version = "0.9", features = ["cuda-12020", "driver"] }
+half = "2.3"
+bytemuck = "1.14"
+
+# FFmpeg integration
+ffmpeg-next = "6.0"
+ffmpeg-sys-next = { version = "6.0", features = ["build"] }
 
 # GPU memory management
-gpu-allocator = { version = "0.23", features = ["cuda"], optional = true }
+gpu-allocator = { version = "0.23", features = ["cuda"] }
 
 # Video processing utilities
 nalgebra = "0.32"
@@ -45,14 +50,7 @@ ndarray = "0.15"
 [features]
 # Enable CUDA by default, but allow building without it
 default = ["cuda"]
-cuda = [
-    "dep:cuda-runtime-sys",
-    "dep:cuda-driver-sys", 
-    "dep:cudarc",
-    "dep:half",
-    "dep:bytemuck",
-    "dep:gpu-allocator"
-]
+cuda = []
 # Custom tauri features
 custom-protocol = ["tauri/custom-protocol"]
 
