@@ -102,4 +102,39 @@ input[type="range"]::-webkit-slider-thumb {
 input[type="range"]::-moz-range-track {
   background: hsl(var(--muted));
   height: 0.5rem;
-  border-radius: 0
+  border-radius: 0.25rem;
+  border: none;
+}
+
+input[type="range"]::-moz-range-thumb {
+  background: hsl(var(--primary));
+  height: 1rem;
+  width: 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+/* Animation utilities */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}
