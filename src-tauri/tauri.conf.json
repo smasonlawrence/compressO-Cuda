@@ -1,71 +1,163 @@
 {
-  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
-  "productName": "CompressO",
-  "version": "1.2.0",
-  "identifier": "com.compresso.app",
   "build": {
-    "beforeBuildCommand": "pnpm next:build",
-    "frontendDist": "../dist",
-    "devUrl": "http://localhost:3000"
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devPath": "http://localhost:1420",
+    "distDir": "../dist",
+    "withGlobalTauri": false
   },
-  "bundle": {
-    "longDescription": "Compress any video file to a tiny size.",
-    "shortDescription": "CompressO.",
-    "active": true,
-    "category": "DeveloperTool",
-    "copyright": "Code For Real",
-    "targets": ["deb", "appimage", "msi", "dmg"],
-    "externalBin": ["./bin/compresso_ffmpeg"],
-    "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
-    ],
-    "windows": {
-      "certificateThumbprint": null,
-      "digestAlgorithm": "sha256",
-      "timestampUrl": ""
+  "package": {
+    "productName": "CompressO-Cuda",
+    "version": "1.3.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "shell": {
+        "all": false,
+        "open": true
+      },
+      "dialog": {
+        "all": false,
+        "open": true,
+        "save": true
+      },
+      "fs": {
+        "all": false,
+        "readFile": true,
+        "writeFile": true,
+        "readDir": true,
+        "copyFile": true,
+        "createDir": true,
+        "removeDir": true,
+        "removeFile": true,
+        "renameFile": true,
+        "exists": true
+      },
+      "path": {
+        "all": true
+      },
+      "process": {
+        "all": false,
+        "exit": true,
+        "relaunch": true,
+        "relaunchDangerousAllowSymlinkMacos": false
+      },
+      "globalShortcut": {
+        "all": false
+      },
+      "os": {
+        "all": true
+      },
+      "notification": {
+        "all": true
+      },
+      "http": {
+        "all": false,
+        "request": false
+      },
+      "window": {
+        "all": false,
+        "close": true,
+        "hide": true,
+        "show": true,
+        "maximize": true,
+        "minimize": true,
+        "unmaximize": true,
+        "unminimize": true,
+        "startDragging": true,
+        "print": false,
+        "setResizable": true,
+        "setTitle": true,
+        "setMaximizable": true,
+        "setMinimizable": true,
+        "setClosable": true,
+        "setDecorations": true,
+        "setAlwaysOnTop": true,
+        "setContentProtected": false,
+        "setSize": true,
+        "setMinSize": true,
+        "setMaxSize": true,
+        "setPosition": true,
+        "setFullscreen": true,
+        "setFocus": true,
+        "setIcon": true,
+        "setSkipTaskbar": false,
+        "setCursorGrab": false,
+        "setCursorVisible": true,
+        "setCursorIcon": true,
+        "setCursorPosition": false,
+        "setIgnoreCursorEvents": false,
+        "requestUserAttention": false,
+        "center": true
+      }
     },
-    "macOS": {
-      "entitlements": null,
-      "exceptionDomain": "",
-      "frameworks": [],
-      "providerShortName": null,
-      "signingIdentity": null
-    },
-    "resources": [],
-    "linux": {
+    "bundle": {
+      "active": true,
+      "targets": "all",
+      "identifier": "com.smasonlawrence.compresso-cuda",
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
+      "resources": [],
+      "externalBin": [],
+      "copyright": "",
+      "category": "DeveloperTool",
+      "shortDescription": "GPU-accelerated video compression",
+      "longDescription": "CUDA-accelerated video compression desktop application with professional-grade quality and performance.",
       "deb": {
         "depends": []
+      },
+      "macOS": {
+        "frameworks": [],
+        "minimumSystemVersion": "",
+        "exceptionDomain": "",
+        "signingIdentity": null,
+        "providerShortName": null,
+        "entitlements": null
+      },
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": ""
       }
-    }
-  },
-  "plugins": {},
-  "app": {
+    },
+    "security": {
+      "csp": null
+    },
     "windows": [
       {
         "fullscreen": false,
-        "height": 992,
-        "width": 1280,
-        "minWidth": 1080,
-        "minHeight": 800,
         "resizable": true,
-        "title": "",
-        "hiddenTitle": true
+        "title": "CompressO-Cuda",
+        "width": 1200,
+        "height": 800,
+        "minWidth": 800,
+        "minHeight": 600,
+        "center": true,
+        "decorations": true,
+        "alwaysOnTop": false,
+        "skipTaskbar": false,
+        "theme": null,
+        "titleBarStyle": "Visible",
+        "fileDropEnabled": true,
+        "visible": true,
+        "transparent": false,
+        "maximized": false,
+        "focus": true
       }
     ],
-    "security": {
-      "csp": "default-src 'self'; img-src 'self' asset: http://asset.localhost asset: https://asset.localhost; style-src 'unsafe-inline' 'self'; connect-src 'self' ipc: http://ipc.localhost ipc: https://ipc.localhost",
-      "dangerousDisableAssetCspModification": ["style-src"],
-      "assetProtocol": {
-        "enable": true,
-        "scope": {
-          "allow": ["$APPDATA/**"],
-          "requireLiteralLeadingDot": false
-        }
-      }
+    "systemTray": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": false,
+      "menuOnLeftClick": false
+    },
+    "updater": {
+      "active": false
     }
   }
 }
